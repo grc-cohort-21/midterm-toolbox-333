@@ -53,7 +53,12 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+
+    while (tail.prev != null) {
+      tail = tail.prev;
+    }
+
+    return tail;
   }
 
   /**
