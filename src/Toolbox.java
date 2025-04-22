@@ -3,33 +3,18 @@ import java.util.Queue;
 
 public class Toolbox {
 
- /**
-   * Removes an element from an array of strings at the specified index, padding with nulls at the end.
-   *
-   * @param array the array of strings to modify
-   * @param index the index of the element to remove
-   * @throws IllegalArgumentException if the array is null or the index is out of bounds
-   */
-  public static void removeElementInPlace(String[] array, int index) {
-    if (array == null || index < 0 || index >= array.length) {
-      throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
-    }
-    
-  }
-
   /**
-   * Adds an element to an array of strings at a specified location in-place, evicting the last value.
+   * Finds the length of a singly linked list given the head.
    *
-   * @param array the array of strings to modify
-   * @param index the index at which to add the new element
-   * @param value the value to add
-   * @throws IllegalArgumentException if the array is null or the index is out of bounds
+   * @param head the head node of the singly linked list
+   * @return the number of nodes in the list
+   * @throws IllegalArgumentException if the head is null
    */
-  public static void addElementInPlace(String[] array, int index, String value) {
-    if (array == null || index < 0 || index >= array.length) {
-      throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
+  public static int length(SingleNode head) {
+    if (head == null) {
+      throw new IllegalArgumentException("Head cannot be null.");
     }
-    
+    return -1; 
   }
 
   /**
@@ -117,10 +102,59 @@ public class Toolbox {
   }
 
   /**
+   * Removes all nodes that are strictly larger than their next neighbor in the original list, except for the head.
+   * The head is never removed.
+   * 
+   * The removals are done in-place.
+   * 
+   * Example:
+   * Input: 5 -> 7 -> 6 -> 20 -> 4 -> 4
+   * Output: 5 -> 6 -> 4 -> 4
+   * 
+   * Explanation: 7 is greater than 6 and 20 is greater than 4, so these nodes are removed.
+   *
+   * @param head the head of the list
+   * @throws IllegalArgumentException if the head is null
+   */
+  public static void removeGiants(SingleNode head) {
+    if (head == null) {
+      throw new IllegalArgumentException("Head cannot be null.");
+    }
+    
+  }
+
+
+    /**
+     * Triples the value of every element in a queue in-place.
+     * 
+     * Only O(1) space should be used.
+     * 
+     * You can assume the queue will have first-in-first-out behavior.
+     *
+     * Example:
+     * Input: [5, 3, 2, 7] 
+     * Result: [15, 9, 6, 21]
+     *
+     * @param queue the queue to modify
+     * @throws IllegalArgumentException if the queue is null
+     */
+    public static void tripleValues(Queue<Integer> queue) {
+      if (queue == null) {
+        throw new IllegalArgumentException("Queue cannot be null");
+      }
+      
+    }
+
+
+  /**
    * Rotates a queue to the left by the specified number of positions in-place.
    * 
    * The first k elements of the queue are moved to the end, preserving the order
    * of all elements.
+   * 
+   * Only O(1) space should be used.
+   * 
+   * You can assume the queue will have first-in-first-out behavior.
    *
    * Example:
    * Given a queue [1, 2, 3, 4, 5] and k = 2, the result will be [3, 4, 5, 1, 2].
@@ -158,6 +192,31 @@ public class Toolbox {
     return false;
   }
 
-  
-
+  /**
+   * Returns the name of the person who has the highest score associated with them in a map.
+   * 
+   * The keys hold the names of the players and the values hold the scores. 
+   * 
+   * For example: 
+   * {
+   *  "Lewis": 20,
+   *  "Yuki": 23,
+   *  "Kimi": 16
+   * }
+   * 
+   * Yuki has the highest score.
+   * 
+   * In the event of a tie, the person whose name comes first lexicographically (alphabetically) should
+   * be returned.
+   * 
+   * @param scores
+   * @return the person with the highest score, or the first person lexicographically if there is a tie
+   * @throws IllegalArgumentException if the scores are null or empty
+   */
+  public static String topScorer(Map<String, Integer> scores) {
+    if (scores == null || scores.isEmpty()) {
+      throw new IllegalArgumentException("Scares cannot be null or empty");
+    }
+    return null;
+  }
 }
