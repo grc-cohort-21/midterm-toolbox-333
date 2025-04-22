@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -14,7 +15,13 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+    SingleNode current = head;
+    int size =0;
+    while(current != null){
+      size++;
+      current = current.next;
+    }
+    return size; 
   }
 
   /**
@@ -28,7 +35,11 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    SingleNode current = head;
+    while(current.next != null){
+      current = current.next;
+    }
+    return current; 
   }
 
   /**
@@ -42,7 +53,11 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+    DoubleNode current = tail;
+    while(current.prev != null){
+      current = current.prev;
+    }
+    return current; 
   }
 
   /**
@@ -56,7 +71,17 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    Map<Integer, Integer> counts = new HashMap<Integer,Integer>();
+    SingleNode current = head;
+    while(current != null){
+      if(counts.get(current.data) != null){
+        counts.put(current.data, counts.get(current.data)+1);
+      } else{
+        counts.put(current.data, 1);
+      }
+      current = current.next;
+    }
+    return counts; 
   }
 
   /**
@@ -69,7 +94,27 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
+    DoubleNode pre = node.prev;
+    DoubleNode post = node.next;
+    if(pre == null && post == null){
+      return;
+    }
+    if(node.prev == null){
+      node.next = null;
+      post.prev = null;
+      return;
+    } 
+    else if(node.next == null){
+      node.prev = null;
+      pre.next = null;
+      return;
+    }
     
+    node.prev = null;
+    node.next = null;
+    pre.next = post;
+    post.prev = pre;
+
   }
 
   /**
@@ -84,7 +129,12 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+    SingleNode current = head;
+    for(int i=0; i<n; i++){
+      if(current == null) return null;
+      current = current.next;
+    }
+    return current; 
   }
 
   /**
@@ -98,7 +148,9 @@ public class Toolbox {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
-
+    SingleNode helper = node.next;
+    node.next = newNode;
+    newNode.next = helper;
   }
 
   /**
