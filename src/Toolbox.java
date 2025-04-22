@@ -90,7 +90,7 @@ public class Toolbox {
   /**
    * Inserts a new node into a singly linked list given a pointer to a node in the middle of the list.
    *
-   * @param node the node before which the new node is to be inserted
+   * @param node the node after which the new node is to be inserted
    * @param newNode the new node to insert
    * @throws IllegalArgumentException if either node or newNode is null
    */
