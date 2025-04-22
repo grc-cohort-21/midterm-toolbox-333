@@ -14,7 +14,13 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+
+    int length = 0;
+    while (head != null) {
+      length++;
+      head = head.next;
+    }
+    return length; 
   }
 
   /**
@@ -28,7 +34,12 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    while (head.next != null) {
+      head = head.next;
+    }
+    
+    return head; 
   }
 
   /**
