@@ -149,6 +149,13 @@ public class Toolbox {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
 
+    // for list 1, ? adding 2 assign ? to come after 2
+    // doesn't matter if next is null, will just assign the next as end of list
+    newNode.next = node.next;
+
+    // assign 2 to come after 1
+    node.next = newNode;
+
   }
 
   /**
