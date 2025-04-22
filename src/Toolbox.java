@@ -178,6 +178,15 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
     
+    SingleNode current = head;
+    while (current.next != null && current.next.next != null) {
+      int nextNum = current.next.data;
+      int followingNum = current.next.next.data;
+      if (nextNum > followingNum) {
+        current.next = current.next.next; 
+      }
+      current = current.next;
+    }
   }
 
 
@@ -200,6 +209,10 @@ public class Toolbox {
         throw new IllegalArgumentException("Queue cannot be null");
       }
       
+      int size = queue.size();
+      for (int i = 0; i < size; i++) {
+        queue.offer(queue.poll()*3);  
+      }
     }
 
 
