@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -72,7 +73,22 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    
+    Map<Integer, Integer> values = new HashMap<>();
+    while (head != null) {
+      
+      if (!values.containsKey(head.data)) {
+        values.put(head.data, 1);
+      } else {
+        int key = head.data;
+        int times = values.get(key) + 1;
+        values.replace(key, times);
+      }
+      
+      head = head.next;
+    } 
+
+    return values;
   }
 
   /**
