@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class Toolbox {
 
@@ -319,6 +316,20 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+    String highName = "";
+    int highScore = 0;
+    for (String name : scores.keySet()) {
+      if (scores.get(name) > highScore) {
+        highName = name;
+        highScore = scores.get(name);
+      }
+      else if (scores.get(name) == highScore) {
+        if (highName.compareToIgnoreCase(name) > 0) {
+          highName = name;
+          highScore = scores.get(name);
+        }
+      }
+    }
+    return highName;
   }
 }
