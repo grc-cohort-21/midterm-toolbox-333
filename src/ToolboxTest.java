@@ -250,6 +250,7 @@ public class ToolboxTest {
     void testFindNthElementOutOfBounds() {
         SingleNode head = SingleNode.fromList(Arrays.asList(10, 5));
         SingleNode result = Toolbox.findNthElement(head, 5);
+        System.out.println(result);
         assertNull(result);
     }
 
