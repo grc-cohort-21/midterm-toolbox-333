@@ -315,8 +315,11 @@ public class Toolbox {
     int highest = 0;
     String name = "";
     for (String key : scores.keySet()) {
-      if (scores.get(key) > highest) {
-        highest = scores.get(key);
+      int currentScore = scores.get(key);
+      if (currentScore > highest) {
+        highest = currentScore;
+        name = key;
+      } else if (currentScore == highest && key.compareToIgnoreCase(name) < 0) {
         name = key;
       }
     }
