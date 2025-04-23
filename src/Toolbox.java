@@ -310,13 +310,17 @@ public class Toolbox {
       throw new IllegalArgumentException("Scores cannot be null or empty");// :)
     }
     Integer highScore = -1;
-    String highPlayer;
-    scores.forEach(player, score -> {
-    if(score > highScore){
-      highScore = score;
-      highPlayer = player;
-    }});
-
-    return null;
+    String highPlayer = "";
+    for(Map.Entry<String, Integer> player : scores.entrySet()) {
+    if(player.getValue() > highScore){
+      highScore = player.getValue();
+      highPlayer = player.getKey();
+    } else if(player.getValue() == highScore){
+      if(player.getKey().compareTo(highPlayer) < 0){
+        highPlayer = player.getKey();
+      } 
+    }
+  }
+    return highPlayer;
   }
 }
