@@ -17,10 +17,11 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
+    SingleNode current = head;
     int length = 0;
-    while (head != null) {
+    while (current != null) {
       length++;
-      head = head.next;
+      current = current.next;
     }
     return length; 
   }
@@ -37,11 +38,12 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
-    while (head.next != null) {
-      head = head.next;
+    SingleNode current = head;
+    while (current.next != null) {
+      current = current.next;
     }
     
-    return head; 
+    return current; 
   }
 
   /**
@@ -56,11 +58,12 @@ public class Toolbox {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
 
-    while (tail.prev != null) {
-      tail = tail.prev;
+    DoubleNode head = tail;
+    while (head.prev != null) {
+      head = head.prev;
     }
 
-    return tail;
+    return head;
   }
 
   /**
@@ -76,17 +79,18 @@ public class Toolbox {
     }
     
     Map<Integer, Integer> values = new HashMap<>();
-    while (head != null) {
-      
-      if (!values.containsKey(head.data)) {
-        values.put(head.data, 1);
+    SingleNode current = head;
+
+    while (current != null) {
+      if (!values.containsKey(current.data)) {
+        values.put(current.data, 1);
       } else {
-        int key = head.data;
+        int key = current.data;
         int times = values.get(key) + 1;
         values.replace(key, times);
       }
       
-      head = head.next;
+      current = current.next;
     } 
 
     return values;
@@ -130,12 +134,14 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
 
-    while (head != null && n > 0) {
-      head = head.next;
+    SingleNode current = head;
+
+    while (current != null && n > 0) {
+      current = current.next;
       n--;
     }
 
-    return head; 
+    return current; 
   }
 
   /**
@@ -306,7 +312,6 @@ public class Toolbox {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
     
-    scores.keySet();
     int highest = 0;
     String name = "";
     for (String key : scores.keySet()) {
