@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
@@ -174,7 +176,7 @@ public class Toolbox {
     }
     SingleNode current = head.next;
     SingleNode prev = head;
-    while(current.next != null){
+    while(current != null && current.next != null){
       if(current.data > current.next.data){
         prev.next = current.next;
         current=current.next;
@@ -251,10 +253,35 @@ public class Toolbox {
    * @throws IllegalArgumentException if the input string is null
    */
   public static boolean hasBalancedParentheses(String input) {
-    if (input == null) {
-      throw new IllegalArgumentException("Input string cannot be null.");
+    if (input == null) throw new IllegalArgumentException("Input string cannot be null.");
+    Map<Character, Character> parens = new HashMap<>();
+    parens.put('(', ')');
+    parens.put('[', ']');
+    parens.put('{', '}');
+    Queue<Character> que = new LinkedList<>();
+    
+    //empties are true
+    if(input.trim() == "") return true;
+    //can't open with a closer.
+    if(!parens.containsKey(input.charAt(0))) return false;
+
+
+    for(int i=0; i<input.length(); i++){
+      //if current symbol is an opener
+      if(parens.containsKey(input.charAt(i))){
+        //add corresponding closer to top and continue
+        que.add(parens.get(input.charAt(i)));
+
+      //else symbol is a closer  
+      }else{
+        //catch stray closers
+        if(que.isEmpty()) return false;
+        //catch a mismatch
+        if(que.poll() != input.charAt(i)) return false;
+      }
     }
-    return false;
+    //true if no openers have not been closed
+    return que.isEmpty();
   }
 
   /**
@@ -280,8 +307,16 @@ public class Toolbox {
    */
   public static String topScorer(Map<String, Integer> scores) {
     if (scores == null || scores.isEmpty()) {
-      throw new IllegalArgumentException("Scares cannot be null or empty");
+      throw new IllegalArgumentException("Scores cannot be null or empty");// :)
     }
+    Integer highScore = -1;
+    String highPlayer;
+    scores.forEach(player, score -> {
+    if(score > highScore){
+      highScore = score;
+      highPlayer = player;
+    }});
+
     return null;
   }
 }
