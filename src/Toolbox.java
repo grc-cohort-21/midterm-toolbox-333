@@ -158,7 +158,7 @@ public class Toolbox {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
-    
+
     SingleNode replacement = new SingleNode(newNode.data);
     newNode = replacement;
     SingleNode current = node;
@@ -199,6 +199,21 @@ public class Toolbox {
   public static void removeGiants(SingleNode head) {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
+    }
+
+    SingleNode current = head;
+    int nodeValue = head.data;
+
+    while(current.next != null && current != null)
+    {
+      if(nodeValue < current.next.data)
+      {
+        current.next = current.next.next;
+      }
+      
+      current = current.next;
+      nodeValue = current.data;
+      
     }
     
   }
