@@ -90,7 +90,19 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
-    
+    if(node.next == null && node.prev == null){
+      return;
+    }
+    else if(node.prev == null){
+      node.next.prev = null;
+    }
+    else if(node.next == null){
+      node.prev.next = null;
+    }
+    else{
+      node.prev.next = node.next;
+      node.next.prev = node.prev;
+    }
   }
 
   /**
