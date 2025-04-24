@@ -156,13 +156,25 @@ public class Toolbox {
    * Output: 5 -> 6 -> 4 -> 4
    * 
    * Explanation: 7 is greater than 6 and 20 is greater than 4, so these nodes are removed.
-   *
+   * 
    * @param head the head of the list
    * @throws IllegalArgumentException if the head is null
    */
   public static void removeGiants(SingleNode head) {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
+    }else if(head.next == null){
+      return;
+    }
+    SingleNode cur = head.next;
+    SingleNode left = head;
+    while(cur.next != null && cur != null){
+      if(cur.data > cur.next.data){
+        left.next = cur.next;
+      }
+      
+      left = left.next;
+      cur = left.next;
     }
     
   }
