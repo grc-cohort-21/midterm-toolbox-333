@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -80,7 +81,23 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    Map<Integer, Integer> map = new HashMap<>();
+    SingleNode current = head;
+    int counter = 0;
+
+    while(current != null)
+    {
+      map.putIfAbsent(current.data, counter);
+      if(map.containsKey(current.data))
+      {
+        map.put(current.data, map.get(current.data) + 1);
+      }
+      current = current.next;
+    }
+    
+
+    return map; 
   }
 
   /**
@@ -92,6 +109,16 @@ public class Toolbox {
   public static void removeNode(DoubleNode node) {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
+    }
+
+    if(node.prev != null)
+    {
+      node.prev.next = node.next;
+    }
+    
+    if(node.next != null)
+    {
+      node.next.prev = node.prev;
     }
     
   }
@@ -108,7 +135,16 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+
+    SingleNode current = head; 
+    int counter = n;
+    while(current != null && counter > 0)
+    {
+      current = current.next;
+      counter--;
+    }
+
+    return current; 
   }
 
   /**
@@ -121,6 +157,26 @@ public class Toolbox {
   public static void insertNode(SingleNode node, SingleNode newNode) {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
+    }
+    
+    SingleNode replacement = new SingleNode(newNode.data);
+    newNode = replacement;
+    SingleNode current = node;
+
+    while(current.next != null)
+    {
+      if(current.next.next == null)
+      {
+        SingleNode saved = current.next;
+        current.next = newNode;
+        newNode.next = saved;
+      }
+      current = current.next;
+    }
+
+    if(current.next == null)
+    {
+      current.next = newNode;
     }
 
   }
