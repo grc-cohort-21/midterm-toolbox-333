@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -201,13 +202,19 @@ public class Toolbox {
 
     while(current.next != null && current != null)
     {
-      if(nodeValue < current.next.data)
+      if(current.next.data < nodeValue)
       {
         current.next = current.next.next;
       }
+      else
+      {
+        current = current.next;
+        if(current != null)
+        {
+          nodeValue = current.data;
+        }
+      }
       
-      current = current.next;
-      nodeValue = current.data;
       
     }
     
@@ -231,6 +238,13 @@ public class Toolbox {
     public static void tripleValues(Queue<Integer> queue) {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
+      }
+
+      for(int i = 0; i < queue.size(); i++)
+      {
+        int pulled = queue.poll();
+        pulled *= 3;
+        queue.add(pulled);
       }
       
     }
@@ -257,6 +271,13 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
+
+    while(k > 0)
+    {
+      int pulled = queue.poll();
+      queue.add(pulled);
+      k--;
+    }
     
   }
 
@@ -279,7 +300,28 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+    
+    Stack<Integer> stack = new Stack<>();
+
+    for(int i = 0; i < input.length(); i++)
+    {
+      int indexes = input.charAt(i);
+      if(indexes == '(')
+      {
+        stack.push(indexes);
+      }
+      else if(indexes == ')')
+      {
+        if(stack.isEmpty())
+        {
+          return false;
+        }
+        stack.pop(); 
+      }
+      
+    }
+    return stack.isEmpty();
   }
 
   /**
@@ -307,6 +349,19 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
+
+    int holder = 0;
+
+    for(String key: scores.keySet())
+    {
+      if(holder < scores.get(key))
+      {
+        holder = scores.get(key);
+      }
+    }
+
+
+
     return null;
   }
 }
