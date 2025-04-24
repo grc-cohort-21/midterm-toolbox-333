@@ -163,19 +163,14 @@ public class Toolbox {
     newNode = replacement;
     SingleNode current = node;
 
-    while(current.next != null)
-    {
-      if(current.next.next == null)
-      {
-        SingleNode saved = current.next;
-        current.next = newNode;
-        newNode.next = saved;
-      }
-      current = current.next;
-    }
-
     if(current.next == null)
     {
+      current.next = newNode;
+    }
+
+    if(current.next.next == null)
+    {
+      newNode.next = current.next;
       current.next = newNode;
     }
 
