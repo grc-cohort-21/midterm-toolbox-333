@@ -285,6 +285,14 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+    int highScore = Integer.MIN_VALUE;
+    String nameScorer = "";
+    for(String name : scores.keySet()){
+      if(scores.get(name) >= highScore){
+        highScore = scores.get(name);
+        nameScorer = name;
+      }
+    }
+    return nameScorer;
   }
 }
