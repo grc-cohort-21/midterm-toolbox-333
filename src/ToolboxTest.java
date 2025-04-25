@@ -11,10 +11,19 @@ import java.util.Queue;
 
 public class ToolboxTest {
 
+
     // ----------------------------------------------------------------------
     // length(SingleNode head)
+
+    @Test
+    void testLength() {
+        SingleNode head = SingleNode.fromList(Arrays.asList(3, 1, 4));
+        assertEquals(3, Toolbox.length(head));
+    }
+
     // ----------------------------------------------------------------------
 
+    
     @Test
     void testLengthSingleElement() {
         SingleNode head = new SingleNode(7);
@@ -40,9 +49,20 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.length(null));
     }
 
+
     // ----------------------------------------------------------------------
     // findTail(SingleNode head)
+
+    @Test
+    void testFindTail() {
+        SingleNode head = SingleNode.fromList(Arrays.asList(10, 20, 30));
+        SingleNode tail = Toolbox.findTail(head);
+        assertEquals(30, tail.data);
+        assertNull(tail.next);
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testFindTailMultipleElements() {
@@ -78,9 +98,25 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.findTail(null));
     }
 
+
     // ----------------------------------------------------------------------
     // findHead(DoubleNode tail)
+
+    @Test
+    void testFindHead() {
+        DoubleNode n1 = new DoubleNode(1);
+        DoubleNode n2 = new DoubleNode(2);
+        DoubleNode n3 = new DoubleNode(3);
+        n1.next = n2; n2.prev = n1;
+        n2.next = n3; n3.prev = n2;
+
+
+        DoubleNode head = Toolbox.findHead(n3);
+        assertEquals(n1, head);
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testFindHeadMultipleElements() {
@@ -111,9 +147,19 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.findHead(null));
     }
 
+
     // ----------------------------------------------------------------------
     // countOccurrences(SingleNode head)
+
+    @Test
+    void testCountOccurrences() {
+        SingleNode head = SingleNode.fromList(Arrays.asList(1, 2, 1, 3));
+        Map<Integer, Integer> counts = Toolbox.countOccurrences(head);
+        assertEquals(Map.of(1, 2, 2, 1, 3, 1), counts);
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testCountOccurrencesMultiple() {
@@ -151,9 +197,26 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.countOccurrences(null));
     }
 
+
     // ----------------------------------------------------------------------
     // removeNode(DoubleNode node)
+
+    @Test
+    void testRemoveNode() {
+        DoubleNode a = new DoubleNode(1);
+        DoubleNode b = new DoubleNode(2);
+        DoubleNode c = new DoubleNode(3);
+        a.next = b; b.prev = a;
+        b.next = c; c.prev = b;
+
+
+        Toolbox.removeNode(b);
+        assertEquals(c, a.next);
+        assertEquals(a, c.prev);
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testRemoveNodeMiddle() {
@@ -216,9 +279,19 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.removeNode(null));
     }
 
+
     // ----------------------------------------------------------------------
     // findNthElement(SingleNode head, int n)
+
+    @Test
+    void testFindNthElement() {
+        SingleNode head = SingleNode.fromList(Arrays.asList(4, 5, 6));
+        SingleNode node = Toolbox.findNthElement(head, 1);
+        assertEquals(5, node.data);
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testFindNthElementIndexZero() {
@@ -264,9 +337,21 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.findNthElement(head, -1));
     }
 
+
     // ----------------------------------------------------------------------
     // insertNode(SingleNode node, SingleNode newNode)
+
+    @Test
+    void testInsertNode() {
+        SingleNode head = SingleNode.fromList(Arrays.asList(1, 3));
+        SingleNode node = head; // 1
+        SingleNode newNode = new SingleNode(2);
+        Toolbox.insertNode(node, newNode);
+        assertEquals(Arrays.asList(1, 2, 3), head.toList());
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testInsertNodeInMiddle() {
@@ -304,9 +389,19 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.insertNode(head, null));
     }
 
+
     // ----------------------------------------------------------------------
     // removeGiants(SingleNode head)
+
+    @Test
+    void testRemoveGiants() {
+        SingleNode head = SingleNode.fromList(Arrays.asList(10, 5, 15, 10));
+        Toolbox.removeGiants(head);  // modifies in-place
+        assertEquals(Arrays.asList(10, 5, 10), head.toList());
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testRemoveGiantsExample() {
@@ -347,9 +442,19 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.removeGiants(null));
     }
 
+
     // ----------------------------------------------------------------------
     // tripleValues(Queue<Integer> queue)
+
+    @Test
+    void testTripleValues() {
+        Queue<Integer> queue = new LinkedList<>(Arrays.asList(1, 2, 3));
+        Toolbox.tripleValues(queue);
+        assertEquals(Arrays.asList(3, 6, 9), new ArrayList<>(queue));
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testTripleValuesTypical() {
@@ -377,9 +482,19 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.tripleValues(null));
     }
 
+
     // ----------------------------------------------------------------------
     // rotateQueueLeft(Queue<Integer> queue, int k)
+
+    @Test
+    void testRotateQueueLeft() {
+        Queue<Integer> queue = new LinkedList<>(Arrays.asList(1, 2, 3, 4));
+        Toolbox.rotateQueueLeft(queue, 1);
+        assertEquals(Arrays.asList(2, 3, 4, 1), new ArrayList<>(queue));
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testRotateQueueLeftValid() {
@@ -413,9 +528,17 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.rotateQueueLeft(queue, -1));
     }
 
+
     // ----------------------------------------------------------------------
     // hasBalancedParentheses(String input)
+
+    @Test
+    void testHasBalancedParentheses() {
+        assertTrue(Toolbox.hasBalancedParentheses("(a(b)c)"));
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testHasBalancedParenthesesBalanced() {
@@ -443,9 +566,18 @@ public class ToolboxTest {
         assertThrows(IllegalArgumentException.class, () -> Toolbox.hasBalancedParentheses(null));
     }
 
+
     // ----------------------------------------------------------------------
     // topScorer(Map<String, Integer> scores)
+
+    @Test
+    void testTopScorer() {
+        Map<String, Integer> scores = Map.of("A", 90, "B", 85, "C", 90);
+        assertEquals("A", Toolbox.topScorer(scores));
+    }
+
     // ----------------------------------------------------------------------
+
 
     @Test
     void testTopScorerTypical() {
