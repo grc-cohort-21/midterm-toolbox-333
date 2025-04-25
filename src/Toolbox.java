@@ -124,8 +124,19 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null or n is negative
    */
   public static SingleNode findNthElement(SingleNode head, int n) {
+    SingleNode current = head;
+    int index= 0;
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
+    }
+    while (current != null){
+        if(index == n){
+          return current;
+        }
+        current = current. next;
+        index++;
+      
+
     }
     return null; 
   }
@@ -138,9 +149,12 @@ public class Toolbox {
    * @throws IllegalArgumentException if either node or newNode is null
    */
   public static void insertNode(SingleNode node, SingleNode newNode) {
+
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
+    newNode.next =node.next;
+    node.next = newNode;
 
   }
 
