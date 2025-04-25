@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -11,10 +12,17 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null
    */
   public static int length(SingleNode head) {
+    int num =0;
+    SingleNode current = head;
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+    while(current != null){
+      num++;
+      current = current.next;
+    }
+
+    return num; 
   }
 
   /**
@@ -25,10 +33,17 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null
    */
   public static SingleNode findTail(SingleNode head) {
+    SingleNode current = head;
+
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    while(current.next != null){
+      current = current.next;
+    }
+   
+    return current; 
   }
 
   /**
@@ -39,10 +54,14 @@ public class Toolbox {
    * @throws IllegalArgumentException if the tail is null
    */
   public static DoubleNode findHead(DoubleNode tail) {
+    DoubleNode current = tail;
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+    while(current.prev !=null){
+      current = current.prev;
+    }
+    return current; 
   }
 
   /**
@@ -53,10 +72,23 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null
    */
   public static Map<Integer, Integer> countOccurrences(SingleNode head) {
+    Map<Integer, Integer> list = new HashMap<>();
+    SingleNode current = head;
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    while(current != null){
+      int value = current.data;
+      if (list.containsKey(value)){
+        list.put(value, list.get(value) + 1);
+      }else{
+        list.put(value, 1);
+      }
+      current = current.next;
+
+    }
+
+    return list; 
   }
 
   /**
