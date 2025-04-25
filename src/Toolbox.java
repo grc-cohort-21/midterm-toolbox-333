@@ -174,8 +174,23 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null
    */
   public static void removeGiants(SingleNode head) {
+    SingleNode current =head;
+    SingleNode previous = null;
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
+    }
+    while(current != null && current.next !=null){
+      if(current.data < current.next.data){
+        if(previous != null){
+          previous.next =current.next;
+        }
+
+        }else{
+          previous =current;
+
+        
+      }
+      current = current.next;
     }
     
   }
@@ -195,11 +210,18 @@ public class Toolbox {
      * @param queue the queue to modify
      * @throws IllegalArgumentException if the queue is null
      */
+    
     public static void tripleValues(Queue<Integer> queue) {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
       }
-      
+      int size = queue.size();
+      for(int i =0; i< size; i++){
+        //dequeue the front element
+        int current = queue.poll();
+        //triple it and add it at the end
+        queue.offer(current*3);
+      }
     }
 
 
