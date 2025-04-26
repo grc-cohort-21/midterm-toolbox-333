@@ -86,11 +86,10 @@ public class Toolbox {
     SingleNode curr = head;
 
     while(curr != null) {
-      if (!occurance.containsKey(head.data)) {
-        occurance.put(head.data, 1);
-      }
-      else {
-        occurance.put(head.data, occurance.get(head.data) + 1);
+      if (occurance.containsKey(curr.data)) {
+        occurance.put(curr.data, occurance.get(curr.data) + 1);
+      } else {
+        occurance.put(curr.data, 1);
       }
       curr = curr.next;
     }
