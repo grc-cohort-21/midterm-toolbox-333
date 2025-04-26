@@ -172,9 +172,20 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    
-  }
+    SingleNode current = head;
 
+    while (current != null && current.next != null) 
+    {
+      if (current.next.next != null && current.next.data > current.next.next.data) 
+      {
+        current.next = current.next.next;
+      } 
+      else 
+      {
+        current = current.next;
+      }
+    }   
+  }
 
     /**
      * Triples the value of every element in a queue in-place.
