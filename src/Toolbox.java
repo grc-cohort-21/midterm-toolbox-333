@@ -193,31 +193,28 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null
    */
   public static void removeGiants(SingleNode head) {
-    if (head == null) {
+    if (head == null ) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
-    SingleNode current = head;
-    int nodeValue = head.data;
+    if(head.next == null)
+    {
+      return;
+    }
+
+    SingleNode current = head.next;
+    SingleNode temp = head;
 
     while(current.next != null && current != null)
     {
-      if(current.next.data < nodeValue)
+      if(current.data > current.next.data)
       {
-        current.next = current.next.next;
+        temp.next = current.next;
       }
-      else
-      {
-        current = current.next;
-        if(current != null)
-        {
-          nodeValue = current.data;
-        }
-      }
-      
-      
+      temp = temp.next;
+      current = temp.next;
     }
-    
+
   }
 
 
@@ -351,17 +348,16 @@ public class Toolbox {
     }
 
     int holder = 0;
+    String nameScore = "";
 
     for(String key: scores.keySet())
     {
-      if(holder < scores.get(key))
+      if(holder < scores.get(key) || holder == scores.get(key) && nameScore.compareTo(key) == 1)
       {
         holder = scores.get(key);
+        nameScore = key;
       }
     }
-
-
-
-    return null;
+    return nameScore;
   }
 }
