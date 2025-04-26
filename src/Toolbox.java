@@ -1,5 +1,7 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -14,7 +16,16 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+
+    SingleNode current = head;
+    int lengthCounter = 0;
+
+    while(current != null)
+    {
+      lengthCounter++;
+      current = current.next;
+    }
+    return lengthCounter; 
   }
 
   /**
@@ -28,7 +39,14 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    SingleNode current = head;
+    
+
+    while(current.next != null)
+    {
+      current = current.next;
+    }
+    return current; 
   }
 
   /**
@@ -42,7 +60,15 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+
+    DoubleNode current = tail;
+    
+    while(current.prev != null)
+    {
+      current = current.prev;
+    }
+
+    return current; 
   }
 
   /**
@@ -56,7 +82,23 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    Map<Integer, Integer> map = new HashMap<>();
+    SingleNode current = head;
+    int counter = 0;
+
+    while(current != null)
+    {
+      map.putIfAbsent(current.data, counter);
+      if(map.containsKey(current.data))
+      {
+        map.put(current.data, map.get(current.data) + 1);
+      }
+      current = current.next;
+    }
+    
+
+    return map; 
   }
 
   /**
@@ -68,6 +110,16 @@ public class Toolbox {
   public static void removeNode(DoubleNode node) {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
+    }
+
+    if(node.prev != null)
+    {
+      node.prev.next = node.next;
+    }
+    
+    if(node.next != null)
+    {
+      node.next.prev = node.prev;
     }
     
   }
@@ -84,7 +136,16 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+
+    SingleNode current = head; 
+    int counter = n;
+    while(current != null && counter > 0)
+    {
+      current = current.next;
+      counter--;
+    }
+
+    return current; 
   }
 
   /**
@@ -97,6 +158,21 @@ public class Toolbox {
   public static void insertNode(SingleNode node, SingleNode newNode) {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
+    }
+
+    SingleNode replacement = new SingleNode(newNode.data);
+    newNode = replacement;
+    SingleNode current = node;
+
+    if(current.next == null)
+    {
+      current.next = newNode;
+    }
+
+    if(current.next.next == null)
+    {
+      newNode.next = current.next;
+      current.next = newNode;
     }
 
   }
@@ -117,10 +193,28 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null
    */
   public static void removeGiants(SingleNode head) {
-    if (head == null) {
+    if (head == null ) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    
+
+    if(head.next == null)
+    {
+      return;
+    }
+
+    SingleNode current = head.next;
+    SingleNode temp = head;
+
+    while(current.next != null && current != null)
+    {
+      if(current.data > current.next.data)
+      {
+        temp.next = current.next;
+      }
+      temp = temp.next;
+      current = temp.next;
+    }
+
   }
 
 
@@ -141,6 +235,13 @@ public class Toolbox {
     public static void tripleValues(Queue<Integer> queue) {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
+      }
+
+      for(int i = 0; i < queue.size(); i++)
+      {
+        int pulled = queue.poll();
+        pulled *= 3;
+        queue.add(pulled);
       }
       
     }
@@ -167,6 +268,13 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
+
+    while(k > 0)
+    {
+      int pulled = queue.poll();
+      queue.add(pulled);
+      k--;
+    }
     
   }
 
@@ -189,7 +297,28 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+    
+    Stack<Integer> stack = new Stack<>();
+
+    for(int i = 0; i < input.length(); i++)
+    {
+      int indexes = input.charAt(i);
+      if(indexes == '(')
+      {
+        stack.push(indexes);
+      }
+      else if(indexes == ')')
+      {
+        if(stack.isEmpty())
+        {
+          return false;
+        }
+        stack.pop(); 
+      }
+      
+    }
+    return stack.isEmpty();
   }
 
   /**
@@ -217,6 +346,18 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+
+    int holder = 0;
+    String nameScore = "";
+
+    for(String key: scores.keySet())
+    {
+      if(holder < scores.get(key) || holder == scores.get(key) && nameScore.compareTo(key) == 1)
+      {
+        holder = scores.get(key);
+        nameScore = key;
+      }
+    }
+    return nameScore;
   }
 }
