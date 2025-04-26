@@ -54,7 +54,12 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+
+    DoubleNode head = tail;
+    while (head.prev != null) {
+      head = head.prev;
+    }
+    return head; 
   }
 
   /**
