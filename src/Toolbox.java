@@ -205,9 +205,12 @@ public class Toolbox {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
       }
-      
+      for(int i = 0; i < queue.size(); i++)
+      {
+        Integer num = queue.poll() * 3;
+        queue.offer(num);
+      }     
     }
-
 
   /**
    * Rotates a queue to the left by the specified number of positions in-place.
