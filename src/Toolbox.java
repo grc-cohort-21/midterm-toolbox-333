@@ -288,11 +288,12 @@ public class Toolbox {
     int highScore = Integer.MIN_VALUE;
     String nameScorer = "";
     for(String name : scores.keySet()){
-      if(scores.get(name) >= highScore){
+      if(scores.get(name) > highScore || (scores.get(name) == highScore && nameScorer.compareTo(name) > 0)){
         highScore = scores.get(name);
         nameScorer = name;
       }
     }
+     
     return nameScorer;
   }
 }
