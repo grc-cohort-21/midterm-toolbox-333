@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -67,10 +68,19 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null
    */
   public static Map<Integer, Integer> countOccurrences(SingleNode head) {
+    Map<Integer, Integer> returnable = new HashMap<>();
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    while(head != null){
+      if(returnable.containsKey(head.data)){
+        returnable.put(head.data, returnable.get(head.data)+1);
+      }else{
+        returnable.put(head.data, 1);
+      }
+      head = head.next;
+    }
+    return returnable; 
   }
 
   /**
