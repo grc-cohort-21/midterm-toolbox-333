@@ -11,10 +11,16 @@ public class Toolbox {
    * @throws IllegalArgumentException if the head is null
    */
   public static int length(SingleNode head) {
+    // less than 1
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+    int returnable = 1;
+    while(head.next != null){
+      returnable++;
+      head = head.next;
+    }
+    return returnable; 
   }
 
   /**
@@ -28,7 +34,11 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    SingleNode cur = head;
+    while(cur.next != null){
+      cur = cur.next;
+    }
+    return cur; 
   }
 
   /**
@@ -42,7 +52,11 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+    DoubleNode cur = tail;
+    while(cur.prev != null){
+      cur = cur.prev;
+    }
+    return cur;
   }
 
   /**
