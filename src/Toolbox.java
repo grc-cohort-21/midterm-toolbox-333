@@ -111,6 +111,29 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
+
+    //front
+    if(node.prev == null)
+    {
+      DoubleNode b = node.next;
+      b.prev = null;
+    }
+    //last
+    if(node.next == null)
+    {
+      DoubleNode a = node.prev;
+      a.next = null;
+
+    }
+    //if()
+    //middle
+    if(node.prev != null && node.next != null)
+    {
+      DoubleNode a = node.prev;
+      DoubleNode b = node.next;
+      a.next = b;
+      b.prev = a;
+    }
     
   }
 
