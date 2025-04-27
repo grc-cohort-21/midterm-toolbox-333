@@ -97,14 +97,14 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
+    else if(node.prev==null&&node.next==null){
+      node=node;
+    }
     else if (node.prev==null){
       node.next.prev=null;
     }
     else if (node.next==null){
       node.prev.next=null;
-    }
-    else if(node.prev==null&&node.next==null){
-      node=null;
     }
     else {
       node.next.prev=node.prev;
@@ -171,7 +171,11 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
     SingleNode last = head;
-    SingleNode curr = head.next;
+    if(head.next==null){
+      head=head;
+    }
+    else {
+      SingleNode curr = head.next;
     while(curr.next!=null){
       if(curr.data>curr.next.data){
         last.next=curr.next;
@@ -180,6 +184,8 @@ public class Toolbox {
       last=last.next;
       curr=last.next;
     }
+    }
+    
   }
 
 
