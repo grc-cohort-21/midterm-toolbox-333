@@ -1,3 +1,4 @@
+import java.util.Stack;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
@@ -232,6 +233,9 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
+    for(int i = 0; i < k; i++){
+      queue.offer(queue.poll());
+    }
     
   }
 
@@ -254,7 +258,20 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+    Stack<Character> myStack = new Stack<>();
+    for(Character c : input.toCharArray()){
+      if(c == ')' && myStack.isEmpty()){
+        return false;
+      }
+      else if (c == ')' && myStack.peek() == c){
+        myStack.pop();
+      }
+      else if(c=='('){
+        myStack.push(c);
+      }
+
+    }
+    return myStack.isEmpty();
   }
 
   /**
