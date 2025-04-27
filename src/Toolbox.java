@@ -150,7 +150,6 @@ public class Toolbox {
     }
     newNode.next = node.next;
     node.next = newNode;
-
   }
 
   /**
@@ -172,7 +171,19 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    
+    if(head.next==null){
+      return;
+    }
+    SingleNode dragger = head;
+    SingleNode rusher = head.next;
+    while(rusher.next!=null){
+      if(rusher.data>rusher.next.data){
+        dragger.next=rusher.next;
+        rusher=null;
+      }
+      dragger=dragger.next;
+      rusher=dragger.next;
+    }
   }
 
 
