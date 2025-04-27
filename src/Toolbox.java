@@ -263,6 +263,9 @@ public class Toolbox {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
     
+    for (int i = 0; i < k; i++) {
+      queue.offer(queue.poll());
+    }
   }
 
   /**
