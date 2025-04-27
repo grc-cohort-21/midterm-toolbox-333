@@ -170,6 +170,11 @@ public class Toolbox {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
 
+    SingleNode curr = node;
+    SingleNode next = curr.next;
+    curr.next = newNode;
+    curr = curr.next;
+    curr.next = next;
   }
 
   /**
