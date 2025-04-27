@@ -1,5 +1,8 @@
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -14,7 +17,13 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+    int i = 0;
+    SingleNode curr = head;
+    while (curr!=null){
+      i++;
+      curr=curr.next;
+    }
+    return i;
   }
 
   /**
@@ -28,7 +37,11 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    SingleNode curr = head;
+    while(curr.next!=null) {
+      curr=curr.next;
+    }
+    return curr;
   }
 
   /**
@@ -42,7 +55,11 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+    DoubleNode curr = tail;
+    while(curr.prev!=null){
+      curr=curr.prev;
+    }
+    return curr; 
   }
 
   /**
@@ -56,7 +73,18 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    Map<Integer, Integer> count = new HashMap<>();
+    SingleNode curr = head;
+    while(curr!=null){
+      if(!count.containsKey(curr.data)){
+        count.put(curr.data, 1);
+      }
+      else {
+        count.put(curr.data, count.get(curr.data)+1);
+      }
+      curr=curr.next;
+    }
+    return count;
   }
 
   /**
@@ -69,7 +97,19 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
-    
+    else if (node.prev==null){
+      node.next.prev=null;
+    }
+    else if (node.next==null){
+      node.prev.next=null;
+    }
+    else if(node.prev==null&&node.next==null){
+      node=null;
+    }
+    else {
+      node.next.prev=node.prev;
+      node.prev.next=node.next;
+    }
   }
 
   /**
@@ -84,8 +124,17 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
-  }
+    SingleNode curr = head;
+    int i = 0;
+    while(curr!=null){
+      if (i==n){
+        break;
+      }
+      curr=curr.next;
+      i++;
+    }
+    return curr;
+    }
 
   /**
    * Inserts a new node into a singly linked list given a pointer to a node in the middle of the list.
@@ -98,7 +147,8 @@ public class Toolbox {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
-
+    newNode.next = node.next;
+    node.next = newNode;
   }
 
   /**
@@ -120,7 +170,16 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    
+    SingleNode last = head;
+    SingleNode curr = head.next;
+    while(curr.next!=null){
+      if(curr.data>curr.next.data){
+        last.next=curr.next;
+        curr=null;
+      }
+      last=last.next;
+      curr=last.next;
+    }
   }
 
 
@@ -142,7 +201,10 @@ public class Toolbox {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
       }
-      
+      for (int i=0;i<queue.size();i++){
+        int num = queue.poll()*3;
+        queue.offer(num);
+      }
     }
 
 
@@ -167,7 +229,9 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
-    
+    for (int i = 0; i < k; i++) {
+      queue.offer(queue.poll());
+    }
   }
 
   /**
@@ -189,7 +253,26 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+    Stack<Character> charStack = new Stack<>();
+    List<Character> openChar = List.of('(', '{', '[');
+    for (Character c : input.toCharArray()) {
+      if (openChar.contains(c)) {
+        charStack.push(c);
+      }
+      else if (c==')'&&!charStack.isEmpty()&&charStack.peek()=='('){
+        charStack.pop();
+      }
+      else if (c=='}'&&!charStack.isEmpty()&&charStack.peek()=='{'){
+        charStack.pop();
+      }
+      else if (c==']'&&!charStack.isEmpty()&&charStack.peek()=='['){
+        charStack.pop();
+      }
+      else {
+        return false;
+      }
+    }
+    return charStack.isEmpty();
   }
 
   /**
@@ -217,6 +300,19 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+    int highest = 0;
+    String highestName = "";
+    for (String name : scores.keySet()) {
+      if(scores.get(name)>highest) {
+        highest=scores.get(name);
+        highestName=name;
+      }
+      else if(scores.get(name)==highest){
+        if(highestName.indexOf(0)>name.indexOf(0)){
+          highestName = name;
+        }
+      }
+    }
+    return highestName;
   }
 }
