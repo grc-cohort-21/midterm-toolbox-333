@@ -263,13 +263,13 @@ public class Toolbox {
       if(c == ')' && myStack.isEmpty()){
         return false;
       }
-      else if (c == ')' && myStack.peek() == c){
+      else if (c == ')' && myStack.peek() == '('){
         myStack.pop();
       }
       else if(c=='('){
         myStack.push(c);
       }
-
+      System.out.println(myStack);
     }
     return myStack.isEmpty();
   }
@@ -299,6 +299,20 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+    int king = -1;
+    String kingString = "";
+    for(String current : scores.keySet()){
+      if(king < scores.get(current)){
+        king = scores.get(current);
+        kingString = current;
+      }else if(king == scores.get(current)){
+        int compare = kingString.compareTo(current);
+        if(compare > 0){
+          kingString = current;
+        }
+      }
+    }
+    return kingString;
   }
+
 }
