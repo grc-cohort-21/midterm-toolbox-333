@@ -153,8 +153,11 @@ public class Toolbox {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
-
+    newNode.next = node.next;
+    node.next = newNode;
   }
+
+  
 
   /**
    * Removes all nodes that are strictly larger than their next neighbor in the original list, except for the head.
@@ -175,8 +178,18 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    
+
+    SingleNode current = head;
+    while (current != null && current.next != null) {
+      if (current.data > current.next.data) {
+        current.next = current.next.next;
+      } else {
+        current = current.next;
+      }
+    }
   }
+    
+  
 
 
     /**
