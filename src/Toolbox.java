@@ -150,7 +150,36 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+  
+    SingleNode current = head;
+    SingleNode tail = head;
+    SingleNode foundNode = head;
+    int indexOfFoundNode = 0;
+
+    int length = 0;
+    while (current != null)
+    {
+      length++;
+      tail = current;
+      current = current.next;
+    }
+
+    if (n == 0)
+    {
+      return head;
+    } else if (n == length-1)
+    {
+      return tail;
+    }
+
+    while (foundNode != null && indexOfFoundNode != n)
+    {
+      indexOfFoundNode++;
+      foundNode = foundNode.next;
+    }
+
+
+    return foundNode; 
   }
 
   /**
