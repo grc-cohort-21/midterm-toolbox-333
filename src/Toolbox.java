@@ -181,14 +181,22 @@ public class Toolbox {
     }
 
     SingleNode current = head;
+
     while (current != null && current.next != null) {
-      if (current.data > current.next.data) {
-        current.next = current.next.next;
-      } else {
-        current = current.next;
-      }
+        if (current != head && current.data > current.next.data) {
+            // Only remove current if it's NOT the head
+            current.next = current.next.next;
+        } else {
+            current = current.next;
+        }
     }
-  }
+}
+
+  
+
+  
+
+   
     
   
 
