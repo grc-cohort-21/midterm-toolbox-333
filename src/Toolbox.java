@@ -1,5 +1,7 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -14,7 +16,14 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+    SingleNode curr = head;
+    int l = 1;
+    while(curr.next != null) 
+    {
+      l++;
+      curr = curr.next;
+    }
+    return l; 
   }
 
   /**
@@ -28,7 +37,15 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    SingleNode tail = null;
+    SingleNode curr = head;
+    while(curr.next != null)
+    {
+      curr = curr.next;
+    }
+    tail = curr;
+    return tail; 
   }
 
   /**
@@ -42,7 +59,14 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+    DoubleNode head = null;
+    DoubleNode curr = tail;
+    while(curr.prev != null)
+    {
+      curr = curr.prev;
+    }
+    head = curr;
+    return head; 
   }
 
   /**
@@ -56,7 +80,26 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    //if map. contains key then value++
+    //else add key and value = 1
+    Map<Integer, Integer> occurrences = new HashMap<>();
+    SingleNode curr = head;
+    while(curr != null)
+    {
+      if(occurrences.containsKey(curr.data))
+      {
+        int value = occurrences.get(curr.data);
+        occurrences.replace(curr.data, value+1);
+      }
+      else
+      {
+        occurrences.put(curr.data, 1);
+      }
+      curr = curr.next;
+    }
+
+    return occurrences; 
   }
 
   /**
@@ -68,6 +111,32 @@ public class Toolbox {
   public static void removeNode(DoubleNode node) {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
+    }
+    //one node
+    if(node.prev == null && node.next == null)
+    {
+      node = null;
+    }    
+    //front
+    else if(node.prev == null)
+    {
+      DoubleNode b = node.next;
+      b.prev = null;
+    }
+    //last
+    else if(node.next == null)
+    {
+      DoubleNode a = node.prev;
+      a.next = null;
+
+    }
+    //middle
+    else if(node.prev != null && node.next != null)
+    {
+      DoubleNode a = node.prev;
+      DoubleNode b = node.next;
+      a.next = b;
+      b.prev = a;
     }
     
   }
@@ -84,7 +153,22 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+    
+    else if(n > (length(head)-1))
+    {
+      return null;
+    }
+    
+    else
+    {
+      SingleNode curr = head;
+      for(int i = 0; i < n; i++)
+      {
+      
+        curr = curr.next;
+      }
+      return curr; 
+    }    
   }
 
   /**
@@ -99,6 +183,10 @@ public class Toolbox {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
 
+    //node = node AFTER newNode
+    //so node.next = newNode
+    newNode.next = node.next;
+    node.next = newNode;
   }
 
   /**
@@ -121,8 +209,22 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
     
+    //curr = head.next; (no removing head)
+    //then compare .next value to curr.value whichever one is greater gets removed
+    //remove 
+      //lesser.next = lesser.next.next (skips over greater node)
+    
+    SingleNode curr = head;
+    while(curr.next != null && curr.next.next != null)
+    {
+      if(curr.next.data > curr.next.next.data) 
+      {
+        curr.next = curr.next.next;
+      }    
+      curr = curr.next;      
+    }
   }
-
+//NEEDS FIXING
 
     /**
      * Triples the value of every element in a queue in-place.
@@ -142,7 +244,12 @@ public class Toolbox {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
       }
-      
+
+      for(int i = 0; i < queue.size(); i++)
+      {
+        int element = queue.poll() * 3;
+        queue.add(element);
+      }      
     }
 
 
@@ -167,7 +274,14 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
-    
+
+    //rotates to left by x positions
+    //first x elements moved to back
+    for(int i = 0; i < k; i++)
+    {
+      int element = queue.poll();
+      queue.add(element);
+    }    
   }
 
   /**
@@ -189,7 +303,32 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+    Stack <Character> stack = new Stack<>();
+    for(char p : input.toCharArray())
+    {
+      //check if opening
+      if(p == '(')
+      {
+          stack.push(p);
+      }
+      else //letter must be closing
+      {
+          if(stack.empty())
+          {
+              return false;
+          }
+          if(p != ')')
+          {
+              return false;
+          }
+          else
+          {
+            stack.pop();
+          }
+      }
+    }
+    return stack.empty();
   }
 
   /**
@@ -217,6 +356,27 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+    //value = map.get(key)
+
+    int greatest = 0;
+    String winningName = "";
+    for(String name : scores.keySet())
+    {
+      int scoreValue = scores.get(name);
+
+      if(scoreValue > greatest)
+      {
+        greatest = scoreValue;
+        winningName = name;
+      }
+      if(scoreValue == greatest)
+      {
+        if(name.compareTo(winningName) < 0)
+        {
+          winningName = name;
+        }
+      }
+    }
+    return winningName;
   }
 }
