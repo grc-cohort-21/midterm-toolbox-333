@@ -217,12 +217,11 @@ public class Toolbox {
     SingleNode curr = head;
     while(curr.next != null && curr.next.next != null)
     {
-      //if(1 > 2)
-      if(curr.data < curr.next.data) //somethings not right...
+      if(curr.next.data > curr.next.next.data) 
       {
         curr.next = curr.next.next;
-      }
-      curr = curr.next;
+      }    
+      curr = curr.next;      
     }
   }
 //NEEDS FIXING
