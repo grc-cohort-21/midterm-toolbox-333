@@ -92,7 +92,7 @@ public class Toolbox {
     Map<Integer, Integer> occurrenceMap = new HashMap<>();
     
     SingleNode curr = head;
-    while (curr.next != null)
+    while (curr != null)
     {
       if (!occurrenceMap.containsKey(curr.data))
       {
@@ -102,7 +102,12 @@ public class Toolbox {
       {
         occurrenceMap.put(curr.data, occurrenceMap.get(curr.data) + 1);
       }
-
+      
+      if (curr.next == null)
+      {
+        break;
+      }
+      
       curr = curr.next;
 
     }
