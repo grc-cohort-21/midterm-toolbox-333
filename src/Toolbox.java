@@ -96,8 +96,6 @@ public class Toolbox {
 
 
 
-
-
   /**
    * Removes a node from a doubly linked list.
    *
@@ -108,8 +106,16 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
-    
+
+    if (node.prev != null) {
+      node.prev.next = node.next;
+    }
+    if (node.next != null) {
+      node.next.prev = node.prev;
+    }
   }
+    
+
 
   /**
    * Finds the nth element in a singly linked list.
@@ -123,8 +129,18 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+
+    SingleNode current = head;
+    int index = 0;
+  
+    while (current != null && index < n) {
+      current = current.next;
+      index++;
+    }
+  
+    return current;
   }
+    
 
   /**
    * Inserts a new node into a singly linked list given a pointer to a node in the middle of the list.
