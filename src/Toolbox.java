@@ -1,4 +1,5 @@
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Queue;
 
 public class Toolbox {
@@ -55,7 +56,12 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+
+    DoubleNode temp = tail;
+    while (temp.prev != null) {
+      temp = temp.prev;
+    }
+    return temp; 
   }
 
   /**
@@ -69,7 +75,20 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    Map<Integer, Integer> counter = new HashMap<>();
+
+    SingleNode temp = head;
+    while (temp != null) {
+      int value = temp.data;
+      if (counter.containsKey(value)) {
+        counter.put(value, counter.get(value) + 1);
+      } else {
+        counter.put(value, 1);
+      }
+      temp = temp.next;
+    }
+    
+    return counter; 
   }
 
   /**
@@ -83,6 +102,8 @@ public class Toolbox {
       throw new IllegalArgumentException("Node cannot be null.");
     }
     
+    node.prev.next = node.next; 
+    node.next.prev = node.prev;
   }
 
   /**
