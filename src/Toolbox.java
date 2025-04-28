@@ -245,9 +245,41 @@ public class Toolbox {
    * @param head the head of the list
    * @throws IllegalArgumentException if the head is null
    */
-  public static void removeGiants(SingleNode head) {
-    if (head == null) {
+  public static void removeGiants(SingleNode head) 
+  {
+    if (head == null) 
+    {
       throw new IllegalArgumentException("Head cannot be null.");
+    }
+
+    SingleNode curr = head;
+    SingleNode prevMarker = head;
+    if (curr.next != null)
+    {
+      curr = curr.next;
+    }
+
+    while (curr.next != null) 
+    {
+      if (curr.data <= curr.next.data)
+      {
+        curr = curr.next;
+        prevMarker = prevMarker.next;
+      }
+      else
+      {
+        if (curr.next.next == null)
+        {
+          curr.next = null;
+        }
+        else
+        {
+          prevMarker.next = curr.next;
+          curr = curr.next;
+        }
+        
+      }
+
     }
     
   }
