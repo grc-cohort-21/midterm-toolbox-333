@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -28,6 +29,7 @@ public class Toolbox {
     return count; 
   }
 
+
   /**
    * Finds the tail of a singly linked list given the head.
    *
@@ -35,7 +37,8 @@ public class Toolbox {
    * @return the tail node of the list, or null if the list is empty
    * @throws IllegalArgumentException if the head is null
    */
-  public static SingleNode findTail(SingleNode head) {
+  public static SingleNode findTail(SingleNode head) 
+  {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
@@ -49,6 +52,7 @@ public class Toolbox {
     return curr; 
   }
 
+
   /**
    * Finds the head of a doubly linked list given the tail.
    *
@@ -56,7 +60,8 @@ public class Toolbox {
    * @return the head node of the list, or null if the list is empty
    * @throws IllegalArgumentException if the tail is null
    */
-  public static DoubleNode findHead(DoubleNode tail) {
+  public static DoubleNode findHead(DoubleNode tail) 
+  {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
@@ -70,6 +75,7 @@ public class Toolbox {
     return curr; 
   }
 
+
   /**
    * Counts the occurrences of values in a linked list.
    *
@@ -77,12 +83,33 @@ public class Toolbox {
    * @return a map where the keys are the values in the list, and the values are the counts of occurrences
    * @throws IllegalArgumentException if the head is null
    */
-  public static Map<Integer, Integer> countOccurrences(SingleNode head) {
+  public static Map<Integer, Integer> countOccurrences(SingleNode head) 
+  {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    Map<Integer, Integer> occurrenceMap = new HashMap<>();
+    
+    SingleNode curr = head;
+    while (curr.next != null)
+    {
+      if (!occurrenceMap.containsKey(curr.data))
+      {
+        occurrenceMap.put(curr.data, 1);
+      }
+      else
+      {
+        occurrenceMap.put(curr.data, occurrenceMap.get(curr.data) + 1);
+      }
+
+      curr = curr.next;
+
+    }
+
+    return occurrenceMap; 
   }
+
 
   /**
    * Removes a node from a doubly linked list.
