@@ -101,7 +101,6 @@ public class Toolbox {
       current = current.next;
     }
 
-
     return countMap; 
   }
 
@@ -115,7 +114,28 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
-    
+
+    DoubleNode current = node;
+
+    // remove single node
+    if (node.prev == null && node.next == null)
+    {
+
+    }
+    else if (node.prev == null) // remove head node 
+    {
+      node = node.next;
+      node.prev = null;
+    } else if (node.next == null) // remove tail node
+    {
+      node = node.prev;
+      node.next = null;
+    } else if (node.next != null && node.prev != null) // remove every node
+    { // remove middle node
+      current = node.prev;
+      current.next = node.next;
+      node.next.prev = current;
+    }
   }
 
   /**
