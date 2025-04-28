@@ -20,9 +20,15 @@ public class Toolbox {
     int count = 0;
 
     SingleNode curr = head;
-    while (curr.next != null) 
+    while (curr != null) 
     {
       count++;
+
+      if (curr.next == null)
+      {
+        break;
+      }
+      
       curr = curr.next;
     }
 
@@ -107,7 +113,7 @@ public class Toolbox {
       {
         break;
       }
-      
+
       curr = curr.next;
 
     }
