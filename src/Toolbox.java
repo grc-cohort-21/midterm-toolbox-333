@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -287,7 +288,24 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+    Stack<Character> balance = new Stack<>();
+    
+    for (char paran : input.toCharArray()) {
+      if (paran == '(') {
+        balance.push(paran);
+      }
+      else {
+        if (balance.isEmpty()) {
+          return false;
+        }
+        else {
+          balance.pop();
+        }
+      }
+    }
+
+    return balance.isEmpty();
   }
 
   /**
