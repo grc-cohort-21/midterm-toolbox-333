@@ -20,19 +20,20 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
-    int count = 0;
+    int count = 0; // Set up counter
 
+    
     SingleNode curr = head;
-    while (curr != null) 
+    while (curr != null)  // Go through the list
     {
-      count++;
+      count++; // Iterate the count for each node
 
-      if (curr.next == null)
+      if (curr.next == null) // When at the end
       {
-        break;
+        break; // Break out of the loop
       }
 
-      curr = curr.next;
+      curr = curr.next; // Go to the next node
     }
 
     return count; 
@@ -54,12 +55,12 @@ public class Toolbox {
     }
 
     SingleNode curr = head;
-    while (curr.next != null)
+    while (curr.next != null) // Go through the list
     {
       curr = curr.next;
     }
 
-    return curr; 
+    return curr; // Return tail
   }
 
 
@@ -78,12 +79,12 @@ public class Toolbox {
     }
 
     DoubleNode curr = tail;
-    while (curr.prev != null)
+    while (curr.prev != null) // Go backwards through the list
     {
       curr = curr.prev;
     }
 
-    return curr; 
+    return curr; // Return the head
   }
 
 
@@ -101,30 +102,30 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
-    Map<Integer, Integer> occurrenceMap = new HashMap<>();
+    Map<Integer, Integer> occurrenceMap = new HashMap<>(); // Set up map for occurrences
     
     SingleNode curr = head;
-    while (curr != null)
+    while (curr != null) // Go through the list
     {
-      if (!occurrenceMap.containsKey(curr.data))
+      if (!occurrenceMap.containsKey(curr.data)) // If the node isn't in the map yet
       {
-        occurrenceMap.put(curr.data, 1);
+        occurrenceMap.put(curr.data, 1); // Add to the map at count 1
       }
-      else
+      else // Otherwise
       {
-        occurrenceMap.put(curr.data, occurrenceMap.get(curr.data) + 1);
+        occurrenceMap.put(curr.data, occurrenceMap.get(curr.data) + 1); // Iterate the existing data point
       }
       
-      if (curr.next == null)
+      if (curr.next == null) // If at the end of the list
       {
-        break;
+        break; // Break out of the loop
       }
 
       curr = curr.next;
 
     }
 
-    return occurrenceMap; 
+    return occurrenceMap; // Return occurrences
   }
 
 
@@ -141,28 +142,31 @@ public class Toolbox {
       throw new IllegalArgumentException("Node cannot be null.");
     }
 
-    if (node.prev == null & node.next == null)
+    if (node.prev == null & node.next == null) // If a single node
     {
-      // No connections
+      // Do nothing, due to no connections
     }
-    else if (node.prev == null)
+    else if (node.prev == null) // If removing the first node
     {
       node = node.next;
       node.prev = null;
     }
-    else if (node.next == null)
+    else if (node.next == null) // If removing the last node
     {
       node = node.prev;
       node.next = null;
     }
-    else
+    else // All other node handling
     {
+      // Set before and after node markers
       DoubleNode before = node;
       DoubleNode after = node;
 
+      // Set the nodes to before and after the current node
       before = before.prev;
       after = after.next;
 
+      // Connect the two points together
       before.next = before.next.next;
       after.prev = after.prev.prev;
     }
@@ -186,19 +190,19 @@ public class Toolbox {
     }
 
     SingleNode curr  = head;
-    while (curr.next != null && n != 0) 
+    while (curr.next != null && n != 0) // Go through the list n times
     {
-      n--;
-      curr = curr.next;
+      n--; // Iterate the count down
+      curr = curr.next; // Go to the next node
     }
 
-    if (n == 0)
+    if (n == 0) // If n fully iterated
     {
-      return curr;
+      return curr; // Return the node at that point
     }
-    else
+    else // if the list ended before the count could finish
     {
-      return null;
+      return null; // Return null, because the point is out of bounds
     }
 
   }
@@ -218,16 +222,16 @@ public class Toolbox {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
 
-    if (node.next == null)
+    if (node.next == null) // If at the end of the list
     {
-      node.next = newNode;
+      node.next = newNode; // Add the node
     }
-    else
+    else // If anywhere else
     {
-      SingleNode save = node;
+      SingleNode save = node; // Set temp
       save = node.next;
-      node.next = newNode;
-      newNode.next = save;
+      node.next = newNode; // Add the node
+      newNode.next = save; // Reattach the rest of the list
     }
 
   }
@@ -254,29 +258,31 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
-    SingleNode curr = head;
+    // Set markers 
+    SingleNode curr = head; 
     SingleNode prevMarker = head;
-    if (curr.next != null)
+    if (curr.next != null) // If not a single node
     {
-      curr = curr.next;
+      curr = curr.next; // Set curr to one point ahead
     }
 
-    while (curr.next != null) 
+    while (curr.next != null) // Go through the list
     {
-      if (curr.data <= curr.next.data)
+      if (curr.data <= curr.next.data) // If the current point is less than or equal to the next one
       {
+        // Continue to the next point
         curr = curr.next;
         prevMarker = prevMarker.next;
       }
-      else
+      else // If the current point is greater than the next one
       {
-        if (curr.next.next == null)
+        if (curr.next.next == null) // If the next node is the last one
         {
-          curr.next = null;
+          curr.next = null; // Remove it
         }
-        else
+        else // If not the last one
         {
-          prevMarker.next = curr.next;
+          prevMarker.next = curr.next; // Set to skip
           curr = curr.next;
         }
         
@@ -308,12 +314,12 @@ public class Toolbox {
         throw new IllegalArgumentException("Queue cannot be null");
       }
 
-      int length = queue.size();
+      int length = queue.size(); // Get the size
 
-      while (length != 0)
+      while (length != 0) // For each point in the queue
       {
-        queue.add(queue.poll() * 3);
-        length--;
+        queue.add(queue.poll() * 3); // Dequeue, multiply it by three, add it back to the queue
+        length--; // Iterate down
       }
       
     }
@@ -343,10 +349,10 @@ public class Toolbox {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
 
-    while (k != 0) 
+    while (k != 0) // Go through queue
     {
-      queue.add(queue.poll());
-      k--;
+      queue.add(queue.poll()); // Remove from the front, and add to the back of the queue
+      k--; // Iterate down
     }
     
   }
@@ -373,44 +379,44 @@ public class Toolbox {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
 
-    if (input == "")
+    if (input == "") // If empty
     {
       return true;
     }
 
-    if (input.toCharArray()[0] == ')')
+    if (input.toCharArray()[0] == ')') // If the first item is a closing parenthesis
     {
       return false;
     }
 
-    Stack<Character> parenPile = new Stack<>();
+    Stack<Character> parenPile = new Stack<>(); // Set up stack
 
     for (Character paren : input.toCharArray())
     {
-      if (paren == '(') 
+      if (paren == '(') // If opening
       {
-        parenPile.push(paren);
+        parenPile.push(paren); //  Add to the stack
       }
-      else if (paren == ')')
+      else if (paren == ')') // If closing
       {
-        if (parenPile.isEmpty())
+        if (parenPile.isEmpty()) // if empty
         {
           return false;
         }
-        else
+        else // Otherwise
         {
           parenPile.pop();
         }
-        
+
       }
 
     }
 
-    if (parenPile.isEmpty())
+    if (parenPile.isEmpty()) // If empty at the end
     {
       return true;
     }
-    else
+    else // If remainders
     {
       return false;
     }
@@ -445,30 +451,30 @@ public class Toolbox {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
 
-    int highestScore = 0;
+    int highestScore = 0; // Set up high value
 
-    for (int score : scores.values()) 
+    for (int score : scores.values()) // Go through the values
     {
-      if (score > highestScore)
+      if (score > highestScore) // If a score is bigger than the current highest
       {
-        highestScore = score;
+        highestScore = score; // Make that the new highest
       }
 
     }
 
-    String highScoreName = "";
+    String highScoreName = ""; // Set the name
 
-    for (String name : scores.keySet())
+    for (String name : scores.keySet()) // Go through the names
     {
-      if (scores.get(name) == highestScore)
+      if (scores.get(name) == highestScore) // If a name has the highest score
       {
-        if (highScoreName == "")
+        if (highScoreName == "") // If high score is empty
         {
-          highScoreName = name;
+          highScoreName = name; // Add the name to that
         }
-        else if (highScoreName.compareTo(name) != -1)
+        else if (highScoreName.compareTo(name) > 0) // If the Name is alphabetically higher
         {
-          highScoreName = name;
+          highScoreName = name; // Set the lower name
         }
       }
 
