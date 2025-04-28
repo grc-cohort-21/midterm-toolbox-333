@@ -13,7 +13,8 @@ public class Toolbox {
    */
   public static int length(SingleNode head) 
   {
-    if (head == null) {
+    if (head == null) 
+    {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
@@ -45,7 +46,8 @@ public class Toolbox {
    */
   public static SingleNode findTail(SingleNode head) 
   {
-    if (head == null) {
+    if (head == null) 
+    {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
@@ -68,7 +70,8 @@ public class Toolbox {
    */
   public static DoubleNode findHead(DoubleNode tail) 
   {
-    if (tail == null) {
+    if (tail == null) 
+    {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
 
@@ -91,7 +94,8 @@ public class Toolbox {
    */
   public static Map<Integer, Integer> countOccurrences(SingleNode head) 
   {
-    if (head == null) {
+    if (head == null) 
+    {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
@@ -130,7 +134,8 @@ public class Toolbox {
    */
   public static void removeNode(DoubleNode node) 
   {
-    if (node == null) {
+    if (node == null) 
+    {
       throw new IllegalArgumentException("Node cannot be null.");
     }
 
@@ -171,11 +176,29 @@ public class Toolbox {
    * @return the nth node, or null if the index is out of bounds
    * @throws IllegalArgumentException if the head is null or n is negative
    */
-  public static SingleNode findNthElement(SingleNode head, int n) {
-    if (head == null || n < 0) {
+  public static SingleNode findNthElement(SingleNode head, int n) 
+  {
+    if (head == null || n < 0) 
+    {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+
+    SingleNode curr  = head;
+    while (curr.next != null && n != 0) 
+    {
+      n--;
+      curr = curr.next;
+    }
+
+    if (n == 0)
+    {
+      return curr;
+    }
+    else
+    {
+      return null;
+    }
+
   }
 
 
