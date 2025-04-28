@@ -299,9 +299,19 @@ public class Toolbox {
      * @param queue the queue to modify
      * @throws IllegalArgumentException if the queue is null
      */
-    public static void tripleValues(Queue<Integer> queue) {
-      if (queue == null) {
+    public static void tripleValues(Queue<Integer> queue) 
+    {
+      if (queue == null) 
+      {
         throw new IllegalArgumentException("Queue cannot be null");
+      }
+
+      int length = queue.size();
+
+      while (length != 0)
+      {
+        queue.add(queue.poll() * 3);
+        length--;
       }
       
     }
@@ -324,9 +334,17 @@ public class Toolbox {
    * @param k the number of positions to rotate to the left
    * @throws IllegalArgumentException if the queue is null or k is negative
    */
-  public static void rotateQueueLeft(Queue<Integer> queue, int k) {
-    if (queue == null || k < 0) {
+  public static void rotateQueueLeft(Queue<Integer> queue, int k) 
+  {
+    if (queue == null || k < 0) 
+    {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
+    }
+
+    while (k != 0) 
+    {
+      queue.add(queue.poll());
+      k--;
     }
     
   }
