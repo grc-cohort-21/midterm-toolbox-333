@@ -195,6 +195,12 @@ public class Toolbox {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
       }
+
+      int qsize = queue.size();
+      for (int i = 0; i < qsize; i++) {
+        int x = queue.poll();
+        queue.offer(x * 3);
+      }
       
     }
 
@@ -219,6 +225,11 @@ public class Toolbox {
   public static void rotateQueueLeft(Queue<Integer> queue, int k) {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
+    }
+
+    for (int i = 0; i < k; i++) {
+      int endOfLine = queue.poll();
+      queue.offer(endOfLine);
     }
     
   }
