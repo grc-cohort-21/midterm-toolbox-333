@@ -14,7 +14,14 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+
+    SingleNode temp = head;
+    int counter = 0;
+    while (temp != null) {
+      temp = temp.next;
+      counter++;
+    }
+    return counter; 
   }
 
   /**
@@ -28,7 +35,13 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    SingleNode temp = head;
+    while (temp.next != null) {
+      temp = temp.next;
+    }
+
+    return temp; 
   }
 
   /**
