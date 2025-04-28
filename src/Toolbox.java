@@ -1,6 +1,7 @@
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -253,6 +254,27 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
+
+    Stack<Character> something = new Stack<>();
+    Map<Character, Character> dictionary = new HashMap<>();
+    dictionary.put('(', ')');
+
+    for (char i : input.toCharArray()) { 
+      if (dictionary.containsKey(i)) {
+        something.add(i);
+      } else if (i == ')') {
+        if (something.empty()) {
+          return false;
+        }
+        char look = something.peek();
+        if (dictionary.get(look) == i) {
+          something.pop();
+        } else {
+          return false;
+        }
+      }
+    }
+    
     return false;
   }
 
