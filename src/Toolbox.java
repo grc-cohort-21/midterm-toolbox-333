@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -242,8 +243,21 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
-    
+
+    int size = queue.size();
+    if (size == 0) {
+      return;
+    }
+  
+    k = k % size; // In case k is bigger than size
+  
+    for (int i = 0; i < k; i++) {
+      int front = queue.poll();
+      queue.offer(front);
+    }
   }
+    
+  
 
   /**
    * Checks if a string has balanced parentheses using a stack.
@@ -264,8 +278,24 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+     Stack<Character> stack = new Stack<>();
+
+  for (char ch : input.toCharArray()) {
+    if (ch == '(') {
+      stack.push(ch);
+    } else if (ch == ')') {
+      if (stack.isEmpty()) {
+        return false;
+      }
+      stack.pop();
+    }
   }
+
+  return stack.isEmpty();
+}
+   
+  
 
   /**
    * Returns the name of the person who has the highest score associated with them in a map.
