@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -303,7 +304,32 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+    Stack <Character> stack = new Stack<>();
+    for(char p : input.toCharArray())
+    {
+      //check if opening
+      if(p == '(')
+      {
+          stack.push(p);
+      }
+      else //letter must be closing
+      {
+          if(stack.empty())
+          {
+              return false;
+          }
+          if(p != ')')
+          {
+              return false;
+          }
+          else
+          {
+            stack.pop();
+          }
+      }
+    }
+    return stack.empty();
   }
 
   /**
@@ -331,6 +357,27 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+    //value = map.get(key)
+
+    int greatest = 0;
+    String winningName = "";
+    for(String name : scores.keySet())
+    {
+      int scoreValue = scores.get(name);
+
+      if(scoreValue > greatest)
+      {
+        greatest = scoreValue;
+        winningName = name;
+      }
+      if(scoreValue == greatest)
+      {
+        if(name.compareTo(winningName) < 0)
+        {
+          winningName = name;
+        }
+      }
+    }
+    return winningName;
   }
 }
