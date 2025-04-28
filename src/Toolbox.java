@@ -301,6 +301,25 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
-  }
+
+    String winner = null; 
+    int maxScore = Integer.MIN_VALUE; 
+
+    for (String name : scores.keySet()) {
+        int score = scores.get(name);
+
+        if (score > maxScore) {
+            maxScore = score;
+            winner = name;
+        } 
+        else if (score == maxScore) {
+            if (winner == null || name.compareTo(winner) < 0) {
+                winner = name;
+            }
+        }
+    }
+
+    return winner; 
 }
+}
+
