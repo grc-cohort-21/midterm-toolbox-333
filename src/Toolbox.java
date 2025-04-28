@@ -209,9 +209,23 @@ public class Toolbox {
    * @param newNode the new node to insert
    * @throws IllegalArgumentException if either node or newNode is null
    */
-  public static void insertNode(SingleNode node, SingleNode newNode) {
-    if (node == null || newNode == null) {
+  public static void insertNode(SingleNode node, SingleNode newNode) 
+  {
+    if (node == null || newNode == null) 
+    {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
+    }
+
+    if (node.next == null)
+    {
+      node.next = newNode;
+    }
+    else
+    {
+      SingleNode save = node;
+      save = node.next;
+      node.next = newNode;
+      newNode.next = save;
     }
 
   }
