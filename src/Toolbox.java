@@ -28,7 +28,7 @@ public class Toolbox {
       {
         break;
       }
-      
+
       curr = curr.next;
     }
 
@@ -128,12 +128,40 @@ public class Toolbox {
    * @param node the node to remove
    * @throws IllegalArgumentException if the node is null
    */
-  public static void removeNode(DoubleNode node) {
+  public static void removeNode(DoubleNode node) 
+  {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
-    
+
+    if (node.prev == null & node.next == null)
+    {
+      // No connections
+    }
+    else if (node.prev == null)
+    {
+      node = node.next;
+      node.prev = null;
+    }
+    else if (node.next == null)
+    {
+      node = node.prev;
+      node.next = null;
+    }
+    else
+    {
+      DoubleNode before = node;
+      DoubleNode after = node;
+
+      before = before.prev;
+      after = after.next;
+
+      before.next = before.next.next;
+      after.prev = after.prev.prev;
+    }
+
   }
+
 
   /**
    * Finds the nth element in a singly linked list.
@@ -149,6 +177,7 @@ public class Toolbox {
     }
     return null; 
   }
+
 
   /**
    * Inserts a new node into a singly linked list given a pointer to a node in the middle of the list.
