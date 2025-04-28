@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -82,8 +83,20 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+     Map<Integer, Integer> counts = new HashMap<>();
+      SingleNode current = head;
+        while (current != null) {
+        counts.put(current.data, counts.getOrDefault(current.data, 0) + 1);
+        current = current.next;
+      }
+   return counts;
   }
+   
+
+
+
+
 
   /**
    * Removes a node from a doubly linked list.
