@@ -208,6 +208,21 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
     
+    //curr = head.next; (no removing head)
+    //then compare .next value to curr.value whichever one is greater gets removed
+    //remove 
+      //lesser.next = lesser.next.next (skips over greater node)
+    
+    SingleNode curr = head;
+    while(curr.next != null && curr.next.next != null)
+    {
+      //if(1 > 2)
+      if(curr.data < curr.next.data) //somethings not right...
+      {
+        curr.next = curr.next.next;
+      }
+      curr = curr.next;
+    }
   }
 
 
