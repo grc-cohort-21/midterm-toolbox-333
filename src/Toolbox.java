@@ -1,5 +1,7 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -14,8 +16,18 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+
+    int count = 0;
+  SingleNode current = head;
+  while (current != null) {
+    count++;
+    current = current.next;
   }
+  return count;
+}
+    
+   
+
 
   /**
    * Finds the tail of a singly linked list given the head.
@@ -28,8 +40,16 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
-  }
+
+    
+    SingleNode current = head;
+      while (current.next != null) {
+      current = current.next;
+    }
+    return current;
+    }
+   
+
 
   /**
    * Finds the head of a doubly linked list given the tail.
@@ -42,8 +62,16 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+
+    DoubleNode current = tail;
+    while (current.prev != null) {
+      current = current.prev;
+    }
+    return current;
   }
+    
+
+
 
   /**
    * Counts the occurrences of values in a linked list.
@@ -56,8 +84,18 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+     Map<Integer, Integer> counts = new HashMap<>();
+      SingleNode current = head;
+        while (current != null) {
+        counts.put(current.data, counts.getOrDefault(current.data, 0) + 1);
+        current = current.next;
+      }
+   return counts;
   }
+   
+
+
 
   /**
    * Removes a node from a doubly linked list.
@@ -69,8 +107,16 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
-    
+
+    if (node.prev != null) {
+      node.prev.next = node.next;
+    }
+    if (node.next != null) {
+      node.next.prev = node.prev;
+    }
   }
+    
+
 
   /**
    * Finds the nth element in a singly linked list.
@@ -84,8 +130,18 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+
+    SingleNode current = head;
+    int index = 0;
+  
+    while (current != null && index < n) {
+      current = current.next;
+      index++;
+    }
+  
+    return current;
   }
+    
 
   /**
    * Inserts a new node into a singly linked list given a pointer to a node in the middle of the list.
@@ -98,8 +154,11 @@ public class Toolbox {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
-
+    newNode.next = node.next;
+    node.next = newNode;
   }
+
+  
 
   /**
    * Removes all nodes that are strictly larger than their next neighbor in the original list, except for the head.
@@ -120,8 +179,26 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
+
+    SingleNode current = head;
+
+    while (current != null && current.next != null) {
+        if (current != head && current.data > current.next.data) {
+            // Only remove current if it's NOT the head
+            current.next = current.next.next;
+        } else {
+            current = current.next;
+        }
+    }
+}
+
+  
+
+  
+
+   
     
-  }
+  
 
 
     /**
@@ -142,8 +219,15 @@ public class Toolbox {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
       }
-      
+
+      int size = queue.size();
+      for (int i = 0; i < size; i++) {
+        int value = queue.poll();   // Remove the first element
+        queue.offer(value * 3);      // Add the tripled value at the end
+      }
     }
+      
+    
 
 
   /**
@@ -167,8 +251,21 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
-    
+
+    int size = queue.size();
+    if (size == 0) {
+      return;
+    }
+  
+    k = k % size; // In case k is bigger than size
+  
+    for (int i = 0; i < k; i++) {
+      int front = queue.poll();
+      queue.offer(front);
+    }
   }
+    
+  
 
   /**
    * Checks if a string has balanced parentheses using a stack.
@@ -189,8 +286,24 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+     Stack<Character> stack = new Stack<>();
+
+  for (char ch : input.toCharArray()) {
+    if (ch == '(') {
+      stack.push(ch);
+    } else if (ch == ')') {
+      if (stack.isEmpty()) {
+        return false;
+      }
+      stack.pop();
+    }
   }
+
+  return stack.isEmpty();
+}
+   
+  
 
   /**
    * Returns the name of the person who has the highest score associated with them in a map.
@@ -217,6 +330,22 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
-  }
+    String winner = null;
+    int maxScore = Integer.MIN_VALUE;
+
+    for (String name : scores.keySet()) {
+        int score = scores.get(name);
+
+        if (score > maxScore) {
+            maxScore = score;
+            winner = name;
+        } else if (score == maxScore && (winner == null || name.compareTo(winner) < 0)) {
+            winner = name;
+        }
+    }
+
+    return winner;
 }
+    
+}
+  
