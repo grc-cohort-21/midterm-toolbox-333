@@ -10,11 +10,22 @@ public class Toolbox {
    * @return the number of nodes in the list
    * @throws IllegalArgumentException if the head is null
    */
-  public static int length(SingleNode head) {
+  public static int length(SingleNode head) 
+  {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+
+    int count = 0;
+
+    SingleNode curr = head;
+    while (curr.next != null) 
+    {
+      count++;
+      curr = curr.next;
+    }
+
+    return count; 
   }
 
   /**
