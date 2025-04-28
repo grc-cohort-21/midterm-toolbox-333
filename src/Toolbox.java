@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
@@ -429,10 +430,44 @@ public class Toolbox {
    * @return the person with the highest score, or the first person lexicographically if there is a tie
    * @throws IllegalArgumentException if the scores are null or empty
    */
-  public static String topScorer(Map<String, Integer> scores) {
-    if (scores == null || scores.isEmpty()) {
+  public static String topScorer(Map<String, Integer> scores) 
+  {
+    if (scores == null || scores.isEmpty()) 
+    {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+
+    int highestScore = 0;
+
+    for (int score : scores.values()) 
+    {
+      if (score > highestScore)
+      {
+        highestScore = score;
+      }
+
+    }
+
+    String highScoreName = "";
+
+    for (String name : scores.keySet())
+    {
+      if (scores.get(name) == highestScore)
+      {
+        if (highScoreName == "")
+        {
+          highScoreName = name;
+        }
+        else if (highScoreName.compareTo(name) != -1)
+        {
+          highScoreName = name;
+        }
+      }
+
+    }
+
+    return highScoreName;
+
   }
+
 }
