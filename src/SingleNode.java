@@ -24,7 +24,8 @@ public class SingleNode {
    * @param data the integer value to store in this node
    * @param next the next node in the list, or null if there is no next node
    */
-  public SingleNode(int data, SingleNode next) {
+  public SingleNode(int data, SingleNode next) 
+  {
     this.data = data;
     this.next = next;
   }
@@ -35,7 +36,8 @@ public class SingleNode {
    *
    * @param data the integer value to store in this node
    */
-  public SingleNode(int data) {
+  public SingleNode(int data) 
+  {
     this(data, null);
   }
 
@@ -44,7 +46,8 @@ public class SingleNode {
    *
    * @return a list containing the values of the nodes in the linked list
    */
-  public List<Integer> toList() {
+  public List<Integer> toList() 
+  {
     List<Integer> result = new ArrayList<>();
     SingleNode current = this;
     while (current != null) {
@@ -62,15 +65,18 @@ public class SingleNode {
    * @return the head node of the constructed singly linked list, or null if the input list is empty
    * @throws IllegalArgumentException if the input list is null or empty
    */
-  public static SingleNode fromList(List<Integer> values) {
-    if (values == null || values.isEmpty()) {
+  public static SingleNode fromList(List<Integer> values) 
+  {
+    if (values == null || values.isEmpty()) 
+    {
       throw new IllegalArgumentException("Input list cannot be null or empty.");
     }
 
     SingleNode head = new SingleNode(values.get(0));
     SingleNode current = head;
 
-    for (int i = 1; i < values.size(); i++) {
+    for (int i = 1; i < values.size(); i++) 
+    {
       current.next = new SingleNode(values.get(i));
       current = current.next;
     }
