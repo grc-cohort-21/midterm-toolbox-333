@@ -224,7 +224,7 @@ public class Toolbox {
       curr = curr.next;
     }
   }
-
+//NEEDS FIXING
 
     /**
      * Triples the value of every element in a queue in-place.
@@ -244,7 +244,12 @@ public class Toolbox {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
       }
-      
+
+      for(int i = 0; i < queue.size(); i++)
+      {
+        int element = queue.poll() * 3;
+        queue.add(element);
+      }      
     }
 
 
@@ -269,7 +274,14 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
-    
+
+    //rotates to left by x positions
+    //first x elements moved to back
+    for(int i = 0; i < k; i++)
+    {
+      int element = queue.poll();
+      queue.add(element);
+    }    
   }
 
   /**
