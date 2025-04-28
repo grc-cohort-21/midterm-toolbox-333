@@ -193,7 +193,7 @@ public class Toolbox {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
-    
+
     newNode.next = node.next;
     node.next = newNode;
   }
@@ -218,6 +218,19 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
     
+    SingleNode current = head;
+
+    if (current.next != null) // for single node case
+    {
+      while (current.next.next != null) // everything else
+      {
+        if (current.next.data > current.next.next.data)
+        {
+          current.next = current.next.next;
+        }
+        current = current.next;
+      }
+    }
   }
 
 
