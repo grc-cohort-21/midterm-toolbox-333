@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -364,11 +365,47 @@ public class Toolbox {
    * @return true if the string has balanced parentheses, false otherwise
    * @throws IllegalArgumentException if the input string is null
    */
-  public static boolean hasBalancedParentheses(String input) {
-    if (input == null) {
+  public static boolean hasBalancedParentheses(String input)
+  {
+    if (input == null) 
+    {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+    if (input == "")
+    {
+      return true;
+    }
+
+    if (input.toCharArray()[0] == ')')
+    {
+      return false;
+    }
+
+    Stack<Character> parenPile = new Stack<>();
+
+    for (Character paren : parenPile)
+    {
+      if (paren == '(') 
+      {
+        parenPile.push(paren);
+      }
+      else if (paren == ')')
+      {
+        parenPile.pop();
+      }
+
+    }
+
+    if (parenPile.isEmpty())
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+
   }
 
   /**
