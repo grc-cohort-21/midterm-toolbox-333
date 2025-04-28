@@ -5,7 +5,8 @@ import java.util.List;
  * Represents a node in a doubly linked list.
  * Each node stores an integer value and has references to the next and previous nodes in the list.
  */
-public class DoubleNode {
+public class DoubleNode 
+{
 
   /**
    * The data stored in this node.
@@ -31,7 +32,8 @@ public class DoubleNode {
    * @param data the integer value to store in this node
    * @param next the next node in the list, or null if this is the last node
    */
-  public DoubleNode(int data, DoubleNode next) {
+  public DoubleNode(int data, DoubleNode next)
+  {
     this.data = data;
     this.next = next;
     // prev is null by default
@@ -43,7 +45,8 @@ public class DoubleNode {
    *
    * @param data the integer value to store in this node
    */
-  public DoubleNode(int data) {
+  public DoubleNode(int data) 
+  {
     this(data, null);
   }
 
@@ -52,10 +55,12 @@ public class DoubleNode {
    *
    * @return a list containing the values of the nodes in the linked list
    */
-  public List<Integer> toList() {
+  public List<Integer> toList() 
+  {
     List<Integer> result = new ArrayList<>();
     DoubleNode current = this;
-    while (current != null) {
+    while (current != null) 
+    {
       result.add(current.data);
       current = current.next;
     }
@@ -70,15 +75,18 @@ public class DoubleNode {
    * @return the head node of the constructed doubly linked list
    * @throws IllegalArgumentException if the input list is null or empty
    */
-  public static DoubleNode fromList(List<Integer> values) {
-    if (values == null || values.isEmpty()) {
+  public static DoubleNode fromList(List<Integer> values) 
+  {
+    if (values == null || values.isEmpty()) 
+    {
       throw new IllegalArgumentException("Input list cannot be null or empty.");
     }
 
     DoubleNode head = new DoubleNode(values.get(0));
     DoubleNode current = head;
 
-    for (int i = 1; i < values.size(); i++) {
+    for (int i = 1; i < values.size(); i++) 
+    {
       DoubleNode newNode = new DoubleNode(values.get(i));
       current.next = newNode;
       newNode.prev = current;
