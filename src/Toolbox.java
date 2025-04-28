@@ -385,7 +385,7 @@ public class Toolbox {
 
     Stack<Character> parenPile = new Stack<>();
 
-    for (Character paren : parenPile)
+    for (Character paren : input.toCharArray())
     {
       if (paren == '(') 
       {
@@ -393,7 +393,15 @@ public class Toolbox {
       }
       else if (paren == ')')
       {
-        parenPile.pop();
+        if (parenPile.isEmpty())
+        {
+          return false;
+        }
+        else
+        {
+          parenPile.pop();
+        }
+        
       }
 
     }
