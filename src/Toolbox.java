@@ -333,6 +333,23 @@ public class Toolbox {
     if (scores == null || scores.isEmpty()) {
       throw new IllegalArgumentException("Scares cannot be null or empty");
     }
-    return null;
+
+    int max = Integer.MIN_VALUE;
+    String player = "";
+
+    for (String name : scores.keySet()) {
+      if (scores.get(name) > max) {
+        max = scores.get(name);
+        player = name;
+      }
+      else if (scores.get(name) == max) {
+        if (name.toLowerCase().charAt(0) < player.toLowerCase().charAt(0)) {
+          max = scores.get(name);
+          player = name;
+        }
+      }
+    }
+
+    return player;
   }
 }
