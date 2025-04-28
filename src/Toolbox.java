@@ -118,7 +118,13 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+    int counter = 0;
+    SingleNode temp = head;
+    while (temp != null && counter < n) {
+      temp = temp.next;
+      counter++;
+    }
+    return temp; 
   }
 
   /**
@@ -132,6 +138,10 @@ public class Toolbox {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
+
+    SingleNode temp = node.next;
+    node.next = newNode;
+    newNode.next = temp;
 
   }
 
