@@ -1,5 +1,7 @@
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Toolbox {
 
@@ -14,7 +16,14 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return -1; 
+
+    SingleNode temp = head;
+    int counter = 0;
+    while (temp != null) {
+      temp = temp.next;
+      counter++;
+    }
+    return counter; 
   }
 
   /**
@@ -28,7 +37,13 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+
+    SingleNode temp = head;
+    while (temp.next != null) {
+      temp = temp.next;
+    }
+
+    return temp; 
   }
 
   /**
@@ -42,7 +57,12 @@ public class Toolbox {
     if (tail == null) {
       throw new IllegalArgumentException("Tail cannot be null.");
     }
-    return null; 
+
+    DoubleNode temp = tail;
+    while (temp.prev != null) {
+      temp = temp.prev;
+    }
+    return temp; 
   }
 
   /**
@@ -56,7 +76,20 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
-    return null; 
+    Map<Integer, Integer> counter = new HashMap<>();
+
+    SingleNode temp = head;
+    while (temp != null) {
+      int value = temp.data;
+      if (counter.containsKey(value)) {
+        counter.put(value, counter.get(value) + 1);
+      } else {
+        counter.put(value, 1);
+      }
+      temp = temp.next;
+    }
+    
+    return counter; 
   }
 
   /**
@@ -69,7 +102,14 @@ public class Toolbox {
     if (node == null) {
       throw new IllegalArgumentException("Node cannot be null.");
     }
-    
+
+    if (node.prev != null) {
+      node.prev.next = node.next; 
+
+    }
+    if (node.next != null) {
+      node.next.prev = node.prev;
+    }
   }
 
   /**
@@ -84,7 +124,13 @@ public class Toolbox {
     if (head == null || n < 0) {
       throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
-    return null; 
+    int counter = 0;
+    SingleNode temp = head;
+    while (temp != null && counter < n) {
+      temp = temp.next;
+      counter++;
+    }
+    return temp; 
   }
 
   /**
@@ -98,6 +144,10 @@ public class Toolbox {
     if (node == null || newNode == null) {
       throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
+
+    SingleNode temp = node.next;
+    node.next = newNode;
+    newNode.next = temp;
 
   }
 
@@ -120,6 +170,15 @@ public class Toolbox {
     if (head == null) {
       throw new IllegalArgumentException("Head cannot be null.");
     }
+
+    SingleNode temp = head;
+    while (temp.next != null && temp.next.next != null) {
+      if (temp.next.data > temp.next.next.data ) {
+        temp.next = temp.next.next;
+      } else {
+        temp = temp.next;
+      }
+    }
     
   }
 
@@ -141,6 +200,12 @@ public class Toolbox {
     public static void tripleValues(Queue<Integer> queue) {
       if (queue == null) {
         throw new IllegalArgumentException("Queue cannot be null");
+      }
+
+      int qsize = queue.size();
+      for (int i = 0; i < qsize; i++) {
+        int x = queue.poll();
+        queue.offer(x * 3);
       }
       
     }
@@ -167,6 +232,11 @@ public class Toolbox {
     if (queue == null || k < 0) {
       throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }
+
+    for (int i = 0; i < k; i++) {
+      int endOfLine = queue.poll();
+      queue.offer(endOfLine);
+    }
     
   }
 
@@ -189,7 +259,28 @@ public class Toolbox {
     if (input == null) {
       throw new IllegalArgumentException("Input string cannot be null.");
     }
-    return false;
+
+    Stack<Character> something = new Stack<>();
+    Map<Character, Character> dictionary = new HashMap<>();
+    dictionary.put('(', ')');
+
+    for (char i : input.toCharArray()) { 
+      if (dictionary.containsKey(i)) {
+        something.add(i);
+      } else if (i == ')') {
+        if (something.empty()) {
+          return false;
+        }
+        char look = something.peek();
+        if (dictionary.get(look) == i) {
+          something.pop();
+        } else {
+          return false;
+        }
+      }
+    }
+    
+    return something.isEmpty();
   }
 
   /**
