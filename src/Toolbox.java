@@ -18,13 +18,19 @@ public class Toolbox {
     }
 
     int count = 0;
-  SingleNode current = head;
-  while (current != null) {
-    count++;
-    current = current.next;
-  }
+
+    SingleNode current = head;
+
+    while(current != null){
+       count++;
+       current = current.next;
+       
+
+    }
   return count;
-}
+    
+  }
+
     
    
 
