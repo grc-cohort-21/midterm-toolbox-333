@@ -99,14 +99,21 @@ public class Toolbox {
       throw new IllegalArgumentException("Head cannot be null.");
     }
 
-     Map<Integer, Integer> counts = new HashMap<>();
-      SingleNode current = head;
-        while (current != null) {
-        counts.put(current.data, counts.getOrDefault(current.data, 0) + 1);
-        current = current.next;
+    Map<Integer, Integer> count = new HashMap<>();
+
+    SingleNode current = head;
+
+    while(current != null){
+      count.put(current.data, count.getOrDefault(current.data, 0)+1);
+      current = current.next;
+
       }
-   return counts;
+  return count;
   }
+    
+
+    
+  
    
 
 
