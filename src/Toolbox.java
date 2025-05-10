@@ -75,11 +75,14 @@ public class Toolbox {
     }
 
     DoubleNode current = tail;
-    while (current.prev != null) {
+    
+    while(current.prev != null){
       current = current.prev;
     }
     return current;
-  }
+    }
+
+   
     
 
 
